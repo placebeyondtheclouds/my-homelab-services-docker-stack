@@ -2,6 +2,9 @@
 
 This is a general framework which I can use to add services (that require a GPU to run) to my homelab.
 
+> [!WARNING]
+> work in progress
+
 ### to do
 
 - [ ] clean up the docker-compose file
