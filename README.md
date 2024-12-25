@@ -2,6 +2,11 @@
 
 This is a general framework which I can use to add services (that require a GPU to run) to my homelab.
 
+### to do
+
+- [ ] clean up the docker-compose file
+- [ ] rootless docker
+
 ### prerequisites
 
 - [docker engine with nvidia runtime](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#common-setup-for-all-lxcs)
