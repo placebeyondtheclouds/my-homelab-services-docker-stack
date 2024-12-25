@@ -1,5 +1,7 @@
 # my-homelab-services-docker-stack
 
+This is a general framework which I can use to add services (that require a GPU to run) to my homelab.
+
 ### prerequisites
 
 - [docker engine with nvidia runtime](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#common-setup-for-all-lxcs)
