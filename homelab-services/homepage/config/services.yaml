@@ -1,0 +1,33 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+- HOMELAB:
+    - Proxmox:
+        icon: proxmox.png
+        href: https://{{HOMEPAGE_VAR_PROXMOX_IP_ADDRESS}}:8006
+        description: Proxmox
+        widget:
+          type: proxmox
+          url: https://{{HOMEPAGE_VAR_PROXMOX_IP_ADDRESS}}:8006
+          username: "{{HOMEPAGE_VAR_PROXMOX_API_TOKEN_ID}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_API_TOKEN_SECRET}}"
+          node: pve
+
+- DOCKER:
+    - Portainer:
+        icon: portainer.png
+        href: https://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:9443
+        description: Portainer
+    - IT-Tools:
+        # icon: portainer.png
+        href: http://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:81
+        description: IT-Tools
+    - Jellyfin:
+        icon: jellyfin.png
+        href: http://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:8096/web/#/home.html
+        description: Jellyfin
+    - OpenWRT:
+        icon: openwrt.png
+        href: https://{{HOMEPAGE_VAR_OPENWRT_IP_ADDRESS}}
+        description: OpenWRT

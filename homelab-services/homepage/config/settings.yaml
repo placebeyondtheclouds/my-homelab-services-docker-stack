@@ -1,0 +1,18 @@
+title: DOCKER-HOMELAB
+
+theme: dark # or light
+
+color: slate
+
+useEqualHeights: true
+
+layout:
+  HOMELAB:
+    header: true
+    style: row
+    columns: 3
+
+  DOCKER:
+    header: true
+    style: row
+    columns: 3

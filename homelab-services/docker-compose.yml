@@ -1,0 +1,167 @@
+#stack name
+name: "homelab-services"
+
+services:
+  homepage:
+    # build:
+    #   context: ./homepage/
+    #   dockerfile: Dockerfile
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      PUID: 1000 # optional, your user id
+      PGID: 1000 # optional, your group id
+      HOMEPAGE_VAR_PROXMOX_API_TOKEN_ID: $PROXMOX_API_TOKEN_ID
+      HOMEPAGE_VAR_PROXMOX_API_TOKEN_SECRET: $PROXMOX_API_TOKEN_SECRET
+      HOMEPAGE_VAR_PROXMOX_IP_ADDRESS: $PROXMOX_IP_ADDRESS
+      HOMEPAGE_VAR_LXC_IP_ADDRESS: $LXC_IP_ADDRESS
+      HOMEPAGE_VAR_OPENWRT_IP_ADDRESS: $OPENWRT_IP_ADDRESS
+    ports:
+      - 80:3000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - homepage_data:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer-ce:2.24.0
+    container_name: portainer
+    environment:
+      # - TZ=Asia/Shanghai
+      - PUID=1000
+      - PGID=1000
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    command: --admin-password "${PORTAINER_PASSWORD_HASH}"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+    networks:
+      - homelab
+    ports:
+      - "8000:8000"
+      - "9443:9443"
+
+  it-tools:
+    image: corentinth/it-tools
+    container_name: it-tools
+    environment:
+      # - TZ=Asia/Shanghai
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "81:80"
+    restart: unless-stopped
+    networks:
+      - homelab
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: 1000:1000
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      # - TZ=Asia/Shanghai
+    network_mode: host
+    # ports:
+    #   - "8096:8096"
+    #   - "8920:8920"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - /usr/share/fonts:/usr/share/fonts
+      - /usr/share/fontconfig:/usr/share/fontconfig
+      - ~/fonts:/fallback_fonts:ro
+      - ~/fonts:/usr/local/share/fonts/custom:ro
+      - type: bind
+        source: /mnt/media
+        target: /mnt/media
+        read_only: true
+      # - type: bind
+      #   source: /path/to/media2
+      #   target: /media2
+      #   read_only: true
+      # Optional - extra fonts to be used during transcoding with subtitle burn-in
+      # - type: bind
+      #   source: /path/to/fonts
+      #   target: /usr/local/share/fonts/custom
+      #   read_only: true
+    restart: "unless-stopped"
+    # Optional - alternative address used for autodiscovery
+    # environment:
+    #   - JELLYFIN_PublishedServerUrl=http://example.com
+    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # networks:
+    #   - homelab
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  hashcat:
+    build:
+      context: ./hashcat
+      dockerfile: Dockerfile-nvidia
+    container_name: hashcat
+    environment:
+      - PUID=1000
+      - PGID=1000
+    networks:
+      - homelab
+    restart: "unless-stopped"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/hashcat:/mnt/hashcat:rw
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # openrgb:
+  #   build:
+  #     context: ./OpenRGB
+  #     dockerfile: Dockerfile
+  #   container_name: openrgb
+  #   environment:
+  #     - TZ=Asia/Shanghai
+  #   ports:
+  #     - "6742:6742"
+  #   networks:
+  #     - homelab
+  #   restart: "unless-stopped"
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - openrgb_data:/root:rw
+
+volumes:
+  portainer_data:
+    driver: local
+  jellyfin-config:
+    driver: local
+  jellyfin-cache:
+    driver: local
+  homepage_data:
+    driver: local
+  openrgb_data:
+    driver: local
+
+networks:
+  homelab:
+    name: "homelab"

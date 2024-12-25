@@ -1,0 +1,15 @@
+name: "checkmate-agent"
+
+services:
+  checkmate-agent:
+    container_name: checkmate-agent
+    build:
+      context: https://github.com/bluewave-labs/capture.git
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3333
+      API_SECRET: $API_SECRET
+      GIN_MODE: release
+    ports:
+      - "3333:3333"
+    restart: unless-stopped

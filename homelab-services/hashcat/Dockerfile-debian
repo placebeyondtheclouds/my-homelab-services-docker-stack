@@ -1,0 +1,54 @@
+FROM debian:bookworm-slim
+
+# Build-time environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN <<EOF
+apt-get update &&
+    apt-get install -y --no-install-recommends dirmngr ca-certificates apt-transport-https
+EOF
+
+# set up mirrors
+RUN <<EOF
+tee /etc/apt/sources.list <<-'EOF2'
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware
+deb https://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+EOF2
+EOF
+
+# set timezone
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+# Install dependencies
+RUN <<EOF
+apt-get update
+apt-get install -y --no-install-recommends git build-essential cmake curl software-properties-common
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+EOF
+
+RUN <<EOF
+apt install linux-headers-amd64 -y
+apt install screen curl gpg -y
+curl -fSsL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/3bf863cc.pub | gpg --dearmor | tee /usr/share/keyrings/nvidia-drivers.gpg > /dev/null 2>&1
+apt update
+apt install dirmngr ca-certificates software-properties-common apt-transport-https dkms -y
+echo 'deb [signed-by=/usr/share/keyrings/nvidia-drivers.gpg] https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/ /' | tee /etc/apt/sources.list.d/nvidia-drivers.list
+apt update
+apt install cuda-drivers-565 -y
+EOF
+
+# Clone hashcat
+WORKDIR /root
+
+RUN git clone https://github.com/hashcat/hashcat.git
+
+WORKDIR /root/hashcat
+
+RUN make -j $(nproc)
+
+RUN make install
+
+CMD ["tail", "-f", "/dev/null"]

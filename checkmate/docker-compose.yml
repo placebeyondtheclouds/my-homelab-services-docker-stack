@@ -1,0 +1,53 @@
+name: "checkmate"
+
+services:
+  client:
+    container_name: uptime_client
+    image: bluewaveuptime/uptime_client:latest
+    environment:
+      UPTIME_APP_API_BASE_URL: "http://192.168.19.234:5000/api/v1"
+    ports:
+      - "8080:80"
+      - "443:443"
+    networks:
+      - checkmate
+    depends_on:
+      - server
+  server:
+    container_name: uptime_server
+    image: bluewaveuptime/uptime_server:latest
+    ports:
+      - "5000:5000"
+    networks:
+      - checkmate
+    depends_on:
+      - redis
+      - mongodb
+    environment:
+      - DB_CONNECTION_STRING=mongodb://mongodb:27017/uptime_db
+      - REDIS_HOST=redis
+    # volumes:
+    # - /var/run/docker.sock:/var/run/docker.sock:ro
+  redis:
+    container_name: uptime_redis
+    image: bluewaveuptime/uptime_redis:latest
+    # ports:
+    #   - "6379:6379"
+    networks:
+      - checkmate
+    volumes:
+      - ./redis/data:/data
+  mongodb:
+    container_name: uptime_mongodb
+    image: bluewaveuptime/uptime_database_mongo:latest
+    volumes:
+      - ./mongo/data:/data/db
+    command: ["mongod", "--quiet"]
+    # ports:
+    #   - "27017:27017"
+    networks:
+      - checkmate
+
+networks:
+  checkmate:
+    name: "checkmate"
