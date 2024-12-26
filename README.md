@@ -1,6 +1,6 @@
 # my-homelab-services-docker-stack
 
-This is a general framework which I can use to add services (that require a GPU to run) to my homelab.
+This is a general framework which I can use to add services (that require a GPU to run) to my homelab. These are my notes and not a refined guide.
 
 > [!WARNING]
 > work in progress
