@@ -115,6 +115,8 @@ scp /tmp/NotoSansCJKsc-Light.woff2 $USER@192.168.19.234:~/fonts/NotoSansCJKsc-Li
 
 - remove the metadata `DOCKER_HOST="ssh://$USER@192.168.19.234" docker exec -it jellyfin rm -rf config/metadata/library/*` and refresh each library's metadata (`refresh metadata`) if doing it after creating the libraries.
 
+- install metadata provider plugins from the Jellyfin UI
+
 - copy new media files to the bind mount on the host, keeping the same directory structure:
 
 ```bash
