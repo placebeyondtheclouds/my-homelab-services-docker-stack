@@ -134,6 +134,26 @@ services:
               count: all
               capabilities: [gpu]
 
+  juice:
+    image: juicelabs/server:11.8-2023.08.10-2103.0633b794
+    container_name: juice
+    environment:
+      - PORT=43210
+    networks:
+      - homelab
+    restart: "unless-stopped"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "43210:43210"
+
   # openrgb:
   #   build:
   #     context: ./OpenRGB

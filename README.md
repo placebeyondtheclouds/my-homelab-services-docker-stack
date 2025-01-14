@@ -123,6 +123,21 @@ scp /tmp/NotoSansCJKsc-Light.woff2 $USER@192.168.19.234:~/fonts/NotoSansCJKsc-Li
 scp -r ./temp/_video/1 root@192.168.19.237:/mnt/media/video/
 ```
 
+### juice (GPU over IP)
+
+to run inference or rendering tasks on the server's GPU from other machines on the network.
+
+- install windows client https://github.com/Juice-Labs/Juice-Labs/releases/download/2023.08.10-2103.0633b794/JuiceClient-windows.zip
+
+Edit juice.cfg
+
+{
+"servers": ["192.168.19.234:43210"],
+...
+}
+
+- https://github.com/Juice-Labs/Juice-Labs/wiki/Run-Juice
+
 ### openrgb
 
 ```bash
