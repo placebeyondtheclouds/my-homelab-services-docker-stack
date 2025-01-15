@@ -13,7 +13,7 @@ This is a general framework which I can use to add services (that require a GPU 
 
 - [Proxmox with NVIDIA drivers](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#software-setup-process)
 - [GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#common-setup-for-all-lxcs)
-- [docker in a GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#debian-lxc-with-docker)
+- [docker in a GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#continue-setting-up-the-debian-lxc-with-gpu-enabled-docker)
 
 ### add ssh key
 
@@ -133,12 +133,27 @@ to run inference or rendering tasks on the server's GPU from other machines on t
 
 Edit juice.cfg
 
+```
 {
-"servers": ["192.168.19.234:43210"],
-...
+  "servers": ["192.168.19.234:43210"],
+  "logGroup": "info",
+  "logFile": "juice.log",
+  "forceSoftwareDecode": false,
+  "disableCache": true,
+  "disableCompression": true,
+  "headless": false,
+  "allowTearing": false,
+  "frameRateLimit": 0,
+  "framesQueueAhead": 3,
+  "swapChainBuffers": 3,
+  "waitForDebugger": false,
+  "acccessToken": ""
 }
+```
 
 - https://github.com/Juice-Labs/Juice-Labs/wiki/Run-Juice
+
+- test with `juicify vkcube` for rendering tasks
 
 the firewall must be set up accordingly to limit access to the server, there is no authentication in Juice server. The client supports setting an API key, but I could not find how to set the API key on the server.
 
