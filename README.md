@@ -11,7 +11,9 @@ This is a general framework which I can use to add services (that require a GPU 
 
 ### prerequisites
 
-- [docker engine with nvidia runtime](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#common-setup-for-all-lxcs)
+- [Proxmox with NVIDIA drivers](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#software-setup-process)
+- [GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#common-setup-for-all-lxcs)
+- [docker in a GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#debian-lxc-with-docker)
 
 ### add ssh key
 
