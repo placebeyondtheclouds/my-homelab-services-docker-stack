@@ -140,6 +140,8 @@ Edit juice.cfg
 
 - https://github.com/Juice-Labs/Juice-Labs/wiki/Run-Juice
 
+the firewall must be set up accordingly to limit access to the server, there is no authentication in Juice server. The client supports setting an API key, but I could not find how to set the API key on the server.
+
 ### openrgb
 
 ```bash
