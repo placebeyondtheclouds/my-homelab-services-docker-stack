@@ -170,7 +170,7 @@ the firewall must be set up accordingly to limit access to the server, there is 
 
 https://github.com/kevmo314/scuda
 
-another GPU over IP solution, mainly for running code that uses CUDA, on Linux.
+another GPU over IP solution, mainly for running code that uses CUDA, Linux server and Linux client.
 
 > [!WARNING]
 > work in progress
