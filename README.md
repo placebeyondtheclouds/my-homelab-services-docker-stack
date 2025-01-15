@@ -5,15 +5,24 @@ This is a general framework which I can use to add services (that require a GPU 
 > [!WARNING]
 > work in progress
 
+### the end result:
+
+docker containers with the following services:
+
+- homepage
+- hashcat
+- jellyfin
+- juice (to run CUDA code or rendering tasks on the server's GPU from other machines on the network)
+
 ### to do
 
 - [ ] clean up the docker-compose file
 
 ### prerequisites
 
-- [Proxmox with NVIDIA drivers](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#software-setup-process)
-- [GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#common-setup-for-all-lxcs)
-- [docker in a GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#continue-setting-up-the-debian-lxc-with-gpu-enabled-docker)
+1. [Proxmox with NVIDIA drivers](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#software-setup-process)
+2. [GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#common-setup-for-all-lxcs)
+3. [docker in a GPU-enabled LXC](https://github.com/placebeyondtheclouds/gpu-home-server?tab=readme-ov-file#continue-setting-up-the-debian-lxc-with-gpu-enabled-docker)
 
 ### add ssh key
 
@@ -156,6 +165,15 @@ Edit juice.cfg
 - test with `juicify vkcube` for rendering tasks
 
 the firewall must be set up accordingly to limit access to the server, there is no authentication in Juice server. The client supports setting an API key, but I could not find how to set the API key on the server.
+
+### SCUDA
+
+https://github.com/kevmo314/scuda
+
+another GPU over IP solution, mainly for running code that uses CUDA, on Linux.
+
+> [!WARNING]
+> work in progress
 
 ### openrgb
 
