@@ -154,6 +154,28 @@ services:
     ports:
       - "43210:43210"
 
+  scuda:
+    build:
+      context: ./scuda
+      dockerfile: Dockerfile
+    container_name: scuda
+    # environment:
+    #   - PORT=43210
+    networks:
+      - homelab
+    restart: "unless-stopped"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "14833:14833"
+
   # openrgb:
   #   build:
   #     context: ./OpenRGB

@@ -149,7 +149,7 @@ Edit juice.cfg
   "logFile": "juice.log",
   "forceSoftwareDecode": false,
   "disableCache": true,
-  "disableCompression": true,
+  "disableCompression": false,
   "headless": false,
   "allowTearing": false,
   "frameRateLimit": 0,
@@ -164,13 +164,27 @@ Edit juice.cfg
 
 - test with `juicify vkcube` for rendering tasks
 
-the firewall must be set up accordingly to limit access to the server, there is no authentication in Juice server. The client supports setting an API key, but I could not find how to set the API key on the server.
+the firewall must be set up accordingly to limit access to the server, there is no authentication in Juice server. The client supports setting an access token, but I could not find how to set the token on the server.
 
 ### SCUDA
 
 https://github.com/kevmo314/scuda
 
 another GPU over IP solution, mainly for running code that uses CUDA, Linux server and Linux client.
+
+- copy the client to the client machine running Ubuntu 24.04. because SCUDA was compiled for CUDA 12.6, a python environment with pytorch compiled with CUDA 12 support is needed. it can be installed with `conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia -y`
+
+it is also possible to change the `ARG CUDA_VERSION=12.6.2` variable in `scuda/Dockerfile` and redeploy the stack, which would build SCUDA for a different CUDA version.
+
+```
+cd ~
+ssh $USER@192.168.19.234 'docker cp scuda:/scuda/libscuda_12.6.so ~/libscuda_12.6.so'
+scp $USER@192.168.19.234:~/libscuda_12.6.so ~/libscuda_12.6.so
+
+export SCUDA_SERVER=192.168.19.234 SCUDA_PORT=14833
+LD_PRELOAD=~/libscuda_12.6.so python3 -c "import torch; print(torch.cuda.is_available())"
+LD_PRELOAD=~/libscuda_12.6.so nvidia-smi
+```
 
 > [!WARNING]
 > work in progress
