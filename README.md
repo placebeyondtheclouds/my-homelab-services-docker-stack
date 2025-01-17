@@ -140,7 +140,7 @@ to run inference or rendering tasks on the server's GPU from other machines on t
 
 server that is used in this stack: https://hub.docker.com/layers/juicelabs/server/11.8-2023.08.10-2103.0633b794/images/sha256-adfd824014a2425cefe9412f9bae30c25151facff158fcced5d2bb2f8c911a3b
 
-- windows client https://github.com/Juice-Labs/Juice-Labs/releases/download/2023.08.10-2103.0633b794/JuiceClient-windows.zip
+- rendering tasks are available for windows client only https://github.com/Juice-Labs/Juice-Labs/releases/download/2023.08.10-2103.0633b794/JuiceClient-windows.zip
 
 Edit juice.cfg
 
@@ -166,7 +166,7 @@ Edit juice.cfg
 
 - test with `juicify vkcube` for rendering tasks
 
-- running pytorch code on the server's GPU from a client machine, Linux example
+- running pytorch code on the server's GPU from a client machine, Linux example:
 
 ```bash
 wget https://github.com/Juice-Labs/Juice-Labs/releases/download/2023.08.10-2103.0633b794/JuiceClient-linux.tar.gz
