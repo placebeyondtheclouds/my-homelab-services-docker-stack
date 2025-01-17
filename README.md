@@ -138,7 +138,9 @@ scp -r ./temp/_video/1 root@192.168.19.237:/mnt/media/video/
 
 to run inference or rendering tasks on the server's GPU from other machines on the network.
 
-- install windows client https://github.com/Juice-Labs/Juice-Labs/releases/download/2023.08.10-2103.0633b794/JuiceClient-windows.zip
+server that is used in this stack: https://hub.docker.com/layers/juicelabs/server/11.8-2023.08.10-2103.0633b794/images/sha256-adfd824014a2425cefe9412f9bae30c25151facff158fcced5d2bb2f8c911a3b
+
+- windows client https://github.com/Juice-Labs/Juice-Labs/releases/download/2023.08.10-2103.0633b794/JuiceClient-windows.zip
 
 Edit juice.cfg
 
@@ -160,7 +162,7 @@ Edit juice.cfg
 }
 ```
 
-- https://github.com/Juice-Labs/Juice-Labs/wiki/Run-Juice
+- how to run: https://github.com/Juice-Labs/Juice-Labs/wiki/Run-Juice
 
 - test with `juicify vkcube` for rendering tasks
 
