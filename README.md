@@ -164,7 +164,23 @@ Edit juice.cfg
 
 - test with `juicify vkcube` for rendering tasks
 
+- running pytorch code on the server's GPU from a client machine, Linux example
+
+```bash
+wget https://github.com/Juice-Labs/Juice-Labs/releases/download/2023.08.10-2103.0633b794/JuiceClient-linux.tar.gz
+tar -xvf JuiceClient-linux.tar.gz -C ~/JuiceClient-linux
+cd ~/JuiceClient-linux
+sed -i 's/"servers": \["127.0.0.1:43210"\]/"servers": \["192.168.19.234:43210"\]/' juice.cfg
+conda create --name pytorch_env python=3.10 -y
+conda activate pytorch_env
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia -y
+./juicify python -c "import torch; print(torch.__version__); print(torch.version.cuda) ; print(torch.backends.cudnn.version()); print(torch.cuda.get_arch_list())"
+```
+
 the firewall must be set up accordingly to limit access to the server, there is no authentication in Juice server. The client supports setting an access token, but I could not find how to set the token on the server.
+
+> [!WARNING]
+> work in progress
 
 ### SCUDA
 
