@@ -87,6 +87,18 @@ hashcat -b
 hashcat -m 22000 /mnt/hashcat/hash.hc22000 -a 3 ?d?d?d?d?d?d?d?d  -o /mnt/hashcat/hashcat_output.txt
 ```
 
+- hashcat
+
+```
+-------------------------------------------------------------
+* Hash-Mode 22000 (WPA-PBKDF2-PMKID+EAPOL) [Iterations: 4095]
+-------------------------------------------------------------
+
+Speed.#1.........:   570.3 kH/s (50.78ms) @ Accel:8 Loops:1024 Thr:512 Vec:1
+```
+
+> approximately 2.92 minutes to brute-force an 8-digit numeric password
+
 ### jellyfin
 
 - https://jellyfin.org/docs/general/installation/container/
