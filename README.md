@@ -13,6 +13,7 @@ docker containers with the following services:
 - hashcat
 - jellyfin
 - juice (to run CUDA code or rendering tasks on the server's GPU from other machines on the network)
+- scuda (another GPU over IP solution, running code that uses CUDA, Linux server and Linux client)
 
 ### to do
 
@@ -204,7 +205,7 @@ another GPU over IP solution, mainly for running code that uses CUDA, Linux serv
 
 - copy the client to the client machine running Ubuntu 24.04.
 
-```
+```bash
 cd ~
 ssh $USER@192.168.19.234 'docker cp scuda:/scuda/libscuda_12.6.so ~/libscuda_12.6.so'
 scp $USER@192.168.19.234:~/libscuda_12.6.so ~/libscuda_12.6.so
@@ -212,6 +213,8 @@ scp $USER@192.168.19.234:~/libscuda_12.6.so ~/libscuda_12.6.so
 export SCUDA_SERVER=192.168.19.234 SCUDA_PORT=14833
 LD_PRELOAD=~/libscuda_12.6.so nvidia-smi
 ```
+
+<br><img src="./pictures/Screenshot%20from%202025-01-22 08-45-48.png" alt="screenshot" width="50%"><br>
 
 I yet to make it work with pytorch
 
