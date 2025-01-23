@@ -192,6 +192,27 @@ services:
   #     - /etc/localtime:/etc/localtime:ro
   #     - openrgb_data:/root:rw
 
+  cadvisor:
+    build:
+      context: ./cadvisor
+      dockerfile: Dockerfile
+      args:
+        CADVISOR_USERNAME: ${CADVISOR_USERNAME}
+        CADVISOR_PASSWORD_HASH: ${CADVISOR_PASSWORD_HASH}
+    container_name: cadvisor
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
 volumes:
   portainer_data:
     driver: local

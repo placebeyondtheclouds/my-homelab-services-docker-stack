@@ -34,6 +34,8 @@ tee -a ~/.ssh/config <<EOF
 
 Host 192.168.19.234
   HostName 192.168.19.234
+  PreferredAuthentications publickey
+  Port 22
   User $USER
   IdentityFile ~/.ssh/$(echo $USER)_homelabservices
 EOF
@@ -58,9 +60,11 @@ PROXMOX_API_TOKEN_SECRET=
 PROXMOX_IP_ADDRESS=192.168.19.237
 LXC_IP_ADDRESS=192.168.19.234
 OPENWRT_IP_ADDRESS=192.168.19.223
+CADVISOR_USERNAME=admin
+CADVISOR_PASSWORD_HASH=$$.....
 ```
 
-password hash can be generated with:
+password hashes can be generated with:
 
 ```bash
 docker run --rm httpd:2.4-alpine htpasswd -nbB admin 'secure_password' | cut -d ":" -f 2  | sed -e s/\\$/\\$\\$/g
@@ -221,6 +225,10 @@ I yet to make it work with pytorch
 > [!WARNING]
 > work in progress
 
+### cadvisor
+
+navigate to http://192.168.19.234:8080/
+
 ### openrgb
 
 ```bash
@@ -296,3 +304,4 @@ secret
 - https://github.com/jellyfin/jellyfin/issues/5636#issuecomment-814781468
 - https://gethomepage.dev/widgets/services/proxmox/
 - https://gethomepage.dev/configs/services/#icons
+- https://github.com/google/cadvisor

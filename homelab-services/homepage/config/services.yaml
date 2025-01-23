@@ -31,3 +31,7 @@
         icon: openwrt.png
         href: https://{{HOMEPAGE_VAR_OPENWRT_IP_ADDRESS}}
         description: OpenWRT
+    - cAdvisor:
+        icon: cadvisor.png
+        href: http://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:8080
+        description: cAdvisor
