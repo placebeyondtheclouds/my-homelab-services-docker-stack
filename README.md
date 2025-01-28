@@ -1,6 +1,6 @@
 # my-homelab-services-docker-stack
 
-This is a general framework which I can use to add services (that require a GPU to run) to my homelab. These are my notes and not a refined guide.
+This is a general framework which I can use to add services (that require a GPU to run) to my homelab. These are my notes and not a refined guide. `docker-compose.yml` is modular and each service can be added or removed without affecting the others.
 
 > [!WARNING]
 > work in progress
@@ -79,6 +79,12 @@ DOCKER_HOST="ssh://$USER@192.168.19.234" docker cp homepage/config homepage:/app
 
 use the last line to update homepage config after making changes to the config files
 
+check the containers' statistics with:
+
+```bash
+DOCKER_HOST="ssh://$USER@192.168.19.234" docker stats
+```
+
 ### hashcat
 
 - https://github.com/dizcza/docker-hashcat
@@ -151,7 +157,7 @@ scp /tmp/NotoSansCJKsc-Light.woff2 $USER@192.168.19.234:~/fonts/NotoSansCJKsc-Li
 scp -r ./temp/_video/1 root@192.168.19.237:/mnt/media/video/
 ```
 
-### juice (GPU over IP)
+### Juice (GPU over IP)
 
 to run inference or rendering tasks on the server's GPU from other machines on the network.
 
