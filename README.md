@@ -9,10 +9,10 @@ This is a general framework which I can use to add services (that require a GPU 
 
 docker containers with the following services:
 
-- homepage
-- hashcat
-- jellyfin
-- juice (to run CUDA code or rendering tasks on the server's GPU from other machines on the network)
+- [Homepage](https://github.com/gethomepage/homepage)
+- [hashcat](https://github.com/hashcat/hashcat)
+- [jellyfin](https://github.com/jellyfin/jellyfin)
+- [juice](https://github.com/Juice-Labs/Juice-Labs) (to run CUDA code or rendering tasks on the server's GPU from other machines on the network)
 - scuda (another GPU over IP solution, running code that uses CUDA, Linux server and Linux client)
 
 ### to do
@@ -234,6 +234,12 @@ I yet to make it work with pytorch
 ### cadvisor
 
 navigate to http://192.168.19.234:8080/
+
+### WatchYourLAN
+
+https://github.com/aceberg/WatchYourLAN
+
+navigate to http://192.168.19.234:8840
 
 ### openrgb
 

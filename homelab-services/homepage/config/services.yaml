@@ -35,3 +35,7 @@
         icon: cadvisor.png
         href: http://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:8080
         description: cAdvisor
+    - watchyourlan:
+        icon: mdi-lan.png
+        href: http://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:8840
+        description: watchyourlan

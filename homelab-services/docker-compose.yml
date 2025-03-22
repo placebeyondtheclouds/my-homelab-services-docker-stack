@@ -213,6 +213,38 @@ services:
       - "8080:8080"
     restart: unless-stopped
 
+  node-bootstrap: # for watchyourlan
+    container_name: node-bootstrap
+    image: aceberg/node-bootstrap
+    restart: unless-stopped
+    ports:
+      - 8850:8850
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - homelab
+
+  wyl:
+    container_name: wyl
+    image: aceberg/watchyourlan
+    network_mode: "host"
+    restart: unless-stopped
+    command: -n http://"${LXC_IP_ADDRESS}":8850 # put your server IP or DNS name here
+    depends_on:
+      - node-bootstrap
+    volumes:
+      - watchyourlan_data:/data/WatchYourLAN:rw
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      TZ: Asia/Shanghai # required: needs your TZ for correct time
+      IFACES: "internet lan" # required: 1 or more interface
+      HOST: "0.0.0.0" # optional, default: 0.0.0.0
+      PORT: "8840" # optional, default: 8840
+      TIMEOUT: "120" # optional, time in seconds, default: 120
+      SHOUTRRR_URL: "" # optional, set url to notify
+      THEME: "sand" # optional
+      COLOR: "dark" # optional
+
 volumes:
   portainer_data:
     driver: local
@@ -223,6 +255,8 @@ volumes:
   homepage_data:
     driver: local
   openrgb_data:
+    driver: local
+  watchyourlan_data:
     driver: local
 
 networks:
