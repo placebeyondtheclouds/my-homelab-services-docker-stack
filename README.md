@@ -14,6 +14,7 @@ docker containers with the following services:
 - [jellyfin](https://github.com/jellyfin/jellyfin)
 - [juice](https://github.com/Juice-Labs/Juice-Labs) (to run CUDA code or rendering tasks on the server's GPU from other machines on the network)
 - scuda (another GPU over IP solution, running code that uses CUDA, Linux server and Linux client)
+- Portainer Community Edition
 
 ### to do
 
@@ -174,7 +175,7 @@ Edit juice.cfg
   "logFile": "juice.log",
   "forceSoftwareDecode": false,
   "disableCache": true,
-  "disableCompression": false,
+  "disableCompression": true,
   "headless": false,
   "allowTearing": false,
   "frameRateLimit": 0,
@@ -258,6 +259,12 @@ DOCKER_HOST="ssh://$USER@192.168.19.234" docker exec -it openrgb sh
 
 > [!WARNING]
 > work in progress
+
+### portainer
+
+navigate to https://192.168.19.234:9443
+
+in `Home -> Environment -> Host -> Setup -> Show GPU in the UI` add the GPU by UUID. run `nvidia-smi -L` to find the UUID.
 
 ### other
 
