@@ -45,8 +45,6 @@ networks:
   guacamole:
     name: "guacamole"
     driver: bridge
-    driver_opts:
-      com.docker.network.bridge.name: "guacamole"
 
 volumes:
   mysql_data:

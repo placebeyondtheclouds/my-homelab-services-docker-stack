@@ -334,7 +334,7 @@ http://192.168.19.234:8081/guacamole
 - Username: `guacadmin`
 - Password: `guacadmin`
 
-login, **immediately** create a new admin user, delete `guacadmin`
+login, **immediately** create a new admin user, relogin, delete `guacadmin`, create an unprivileged user. use `Ctrl`+`Alt`+`Shift` to access the menu.
 
 > [!WARNING]
 > work in progress

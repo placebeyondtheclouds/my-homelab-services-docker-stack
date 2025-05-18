@@ -39,3 +39,7 @@
         icon: mdi-lan.png
         href: http://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:8840
         description: watchyourlan
+    - guacamole:
+        icon: guacamole.png
+        href: http://{{HOMEPAGE_VAR_LXC_IP_ADDRESS}}:8081
+        description: guacamole
