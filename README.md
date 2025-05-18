@@ -269,7 +269,6 @@ in `Home -> Environment -> Host -> Setup -> Show GPU in the UI` add the GPU by U
 ### other
 
 - nextcloud
-
 - https://runtipi.io/docs/apps-available
 - https://docs.techdox.nz/paperless/
 - https://www.linuxserver.io/
@@ -317,6 +316,29 @@ secret
 > [!WARNING]
 > work in progress
 
+## guacamole stack
+
+```bash
+cd guacamole
+export $(grep -v '^#' .env | xargs)
+docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --mysql > initdb.sql
+DOCKER_HOST="ssh://$USER@192.168.19.234" docker compose up -d guac_db
+DOCKER_HOST="ssh://$USER@192.168.19.234" docker cp initdb.sql guac_db:/initdb.sql
+DOCKER_HOST="ssh://$USER@192.168.19.234" docker exec guac_db bash -c 'cat /initdb.sql | mysql -u root -p"$MYSQL_ROOT_PASSWORD" guacamole_db'
+DOCKER_HOST="ssh://$USER@192.168.19.234" docker compose down guac_db
+DOCKER_HOST="ssh://$USER@192.168.19.234" docker compose up -d
+```
+
+http://192.168.19.234:8081/guacamole
+
+- Username: `guacadmin`
+- Password: `guacadmin`
+
+login, **immediately** create a new admin user, delete `guacadmin`
+
+> [!WARNING]
+> work in progress
+
 ## references
 
 - https://technotim.live/posts/homepage-dashboard/
@@ -324,3 +346,5 @@ secret
 - https://gethomepage.dev/widgets/services/proxmox/
 - https://gethomepage.dev/configs/services/#icons
 - https://github.com/google/cadvisor
+- https://guacamole.apache.org/doc/gug/guacamole-docker.html
+- https://guacamole.apache.org/doc/gug/jdbc-auth.html
